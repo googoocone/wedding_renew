@@ -1,101 +1,96 @@
+import Slider from "@/components/Slider";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="w-full mt-[80px] flex flex-col items-center justify-start">
+      <div className="w-full h-[40px] md:h-[80px] bg-gray-200 text-black/70 flex items-center justify-center text-sm md:text-xl">
+        💕
+        <span className="font-semibold mx-2">
+          예신 신랑 신부가 할인 받은{" "}
+        </span>{" "}
+        웨딩홀 견적서를 볼 수 있어요!
+      </div>
+      <div className=" bg-[url('/images/bg-blur.svg')] bg-[length:1000px_1000px] bg-no-repeat bg-center flex flex-col h-[800px] gap-10  items-center justify-center w-full px-[40px] md:px-[80px] mx-auto">
+        <div className="text-4xl text-center font-semibold text-black/70 mb-10">
+          결혼 준비에 필요한 <br />
+          모든것들이 다 있어요.
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <div className="w-[400px] max-w-[450px] flex flex-col items-center justify-center gap-4">
+          <div className="py-7 w-full flex items-center justify-center text-xl cursor-pointer rounded-2xl font-semibold bg-white hover:bg-[#FC9696] ">
+            ❤️ 웨딩홀 투어
+          </div>
+          <div className="py-7 w-full flex items-center justify-center text-xl cursor-pointer rounded-2xl font-semibold  bg-white hover:bg-[#FC9696]">
+            💕 할인받은 웨딩홀 견적서
+          </div>
+          <div className="py-7 w-full flex items-center justify-center text-xl cursor-pointer rounded-2xl font-semibold  bg-white hover:bg-[#FC9696]">
+            📕 웨딩 스케쥴러
+          </div>
+          <div className="py-7 w-full flex items-center justify-center text-xl cursor-pointer rounded-2xl font-semibold  bg-white hover:bg-[#FC9696]">
+            🎀 웨딩 로드맵{" "}
+          </div>
+          <div className="py-7 w-full flex items-center justify-center text-xl cursor-pointer rounded-2xl font-semibold  bg-white hover:bg-[#FC9696]">
+            🎀 모바일 청첩장
+          </div>
+        </div>
+      </div>
+      <div className="w-full h-[300px] mt-10 flex flex-col items-center justify-center gap-10 bg-transparent">
+        <div className="text-2xl font-semibold text-center text-black/60">
+          지금 바로 확인할 수 있는 웨딩홀 견적
+        </div>
+        <div className="w-full md:w-[1200px] h-[150px] mx-auto">
+          <Slider />
+        </div>
+      </div>
+      <div className="w-full h-[650px] flex items-center justify-center bg-[#F7F8F8] ">
+        <div className="w-[400px] h-[500px]">
           <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+            src={"/images/home-mobile-1.png"}
+            width={400}
+            height={470}
+            alt="웨딩홀 상세 견적서 모바일"
+            style={{ objectFit: "cover" }}
+          ></Image>
+        </div>
+        <div className="w-[550px] flex flex-col items-center justify-center">
+          <h2 className="text-5xl font-semibold mb-5">예비 신랑 신부님들의</h2>
+          <h2 className="text-5xl font-semibold mb-12">
+            <span className="text-red-300">시간과 노력</span>을 아껴드려요
+          </h2>
+
+          <h3 className="text-xl">
+            <span className="font-semibold">
+              대관료, 식대, 주차, 보증인원, 상세옵션과 패키지
+            </span>
+            까지
+          </h3>
+          <h3 className="text-xl">이제는 집에서 편하게 검색만 하세요.</h3>
+        </div>
+      </div>
+      <div className="w-[1200px] h-[650px] flex items-center justify-center bg-[#white] ">
+        <div className="w-[580px] flex flex-col items-center justify-center">
+          <h2 className="text-5xl font-semibold mb-5">예비 신랑 신부님들의</h2>
+          <h2 className="text-5xl font-semibold mb-12">
+            <span className="text-red-300">결혼식 비용</span>을 아껴드릴게요
+          </h2>
+
+          <h3 className="text-xl">
+            웨딩홀 투어를 가기 전,{" "}
+            <span className="font-semibold">할인 견적서</span>들을 확인해야
+          </h3>
+          <h3 className="text-xl">내 지갑을 지킬 수 있어요!</h3>
+        </div>
+        <div className="w-[400px] h-[500px]">
           <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+            src={"/images/home-mobile-1.png"}
+            width={400}
+            height={470}
+            alt="웨딩홀 상세 견적서 모바일"
+            style={{ objectFit: "cover" }}
+          ></Image>
+        </div>
+      </div>
+      <div></div>
     </div>
   );
 }

@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+// app/layout.tsx 또는 _app.tsx (Next.js 13+)
+import { Noto_Sans_KR } from "next/font/google";
+
 import "./globals.css";
+import Navigation from "@/components/Navigation";
+import SessionProvider from "./Provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const notoSansKR = Noto_Sans_KR({
+  subsets: ["latin", "korean"], // 한글 지원
+  weight: ["100", "300", "400", "500", "700", "900"], // 원하는 폰트 두께
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -24,10 +24,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={notoSansKR.className}>
+        <SessionProvider>
+          <Navigation></Navigation>
+          {children}
+        </SessionProvider>
       </body>
     </html>
   );
