@@ -37,19 +37,20 @@ export default function Navigation() {
   return (
     <>
       {/* 데스크탑 네비게이션 */}
+
       <div
-        className={`w-full fixed top-0 z-50 ${
+        className={`w-full bg-white px-[80px] fixed top-0 z-50 ${
           hasScrolled ? "border-b border-gray-100" : ""
         }`}
       >
-        <div className="hidden h-[80px] sm:flex items-center justify-between mx-auto px-[40px] lg:px-[80px] bg-white z-50">
+        <div className="hidden max-w-[1400px] h-[80px] sm:flex items-center justify-between mx-auto px-[40px] lg:px-[80px] bg-white z-50">
           <div className="w-[200px] h-full flex items-center font-bold text-xl">
             <Link href={"/"}>
               <Image src={"/logo2.svg"} width={100} height={50} alt="logo" />
             </Link>
           </div>
 
-          <div className="w-[500px] h-full flex items-center justify-center">
+          <div className="hidden min-[1100px]:flex w-[500px] h-full  items-center justify-center">
             <ul className="flex space-x-8 text-lg font-medium">
               {navList.map((item, index) => (
                 <li key={index}>
