@@ -144,22 +144,24 @@ export default function HallFilter() {
       <div className="mt-8">
         <h4 className="text-md font-semibold mb-4">상세 지역</h4>
         <div className="h-[250px] scrollbar overflow-y-auto rounded-lg p-2 bg-gray-50 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
-          {regions[selectedRegion].map((subRegion: any) => (
-            <label
-              key={subRegion}
-              className="flex items-center space-x-2 my-2 cursor-pointer p-1 rounded-md hover:bg-orange-100 transition"
-            >
-              <input
-                type="radio"
-                name="subRegion"
-                value={subRegion}
-                checked={selectedSubRegion === subRegion}
-                onChange={() => setSelectedSubRegion(subRegion)}
-                className="appearance-none w-5 h-5 rounded-full bg-white border border-gray-200 checked:bg-red-300 checked:border-none outline-none focus:ring-0"
-              />
-              <span>{subRegion}</span>
-            </label>
-          ))}
+          {(regions[selectedRegion as keyof typeof regions] || []).map(
+            (subRegion: any) => (
+              <label
+                key={subRegion}
+                className="flex items-center space-x-2 my-2 cursor-pointer p-1 rounded-md hover:bg-orange-100 transition"
+              >
+                <input
+                  type="radio"
+                  name="subRegion"
+                  value={subRegion}
+                  checked={selectedSubRegion === subRegion}
+                  onChange={() => setSelectedSubRegion(subRegion)}
+                  className="appearance-none w-5 h-5 rounded-full bg-white border border-gray-200 checked:bg-red-300 checked:border-none outline-none focus:ring-0"
+                />
+                <span>{subRegion}</span>
+              </label>
+            )
+          )}
         </div>
         <hr className="mt-4" />
       </div>

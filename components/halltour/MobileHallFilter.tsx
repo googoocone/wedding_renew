@@ -161,22 +161,24 @@ export default function MobileHallFilter({ onClose }: MobileHallFilterProps) {
       <div className="mb-4">
         <h4 className="text-md font-semibold my-4">상세 지역</h4>
         <div className="h-[200px] space-y-2 overflow-y-auto rounded-lg p-2 bg-gray-50 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
-          {regions[selectedRegion].map((subRegion) => (
-            <label
-              key={subRegion}
-              className="flex items-center space-x-2 my-2 cursor-pointer p-1 rounded-md hover:bg-orange-100 transition"
-            >
-              <input
-                type="radio"
-                name="subRegion-mobile"
-                value={subRegion}
-                checked={selectedSubRegion === subRegion}
-                onChange={() => setSelectedSubRegion(subRegion)}
-                className="appearance-none w-5 h-5 rounded-full bg-white border border-gray-300 checked:bg-red-300 checked:border-none outline-none focus:ring-0"
-              />
-              <span className="text-sm">{subRegion}</span>
-            </label>
-          ))}
+          {(regions[selectedRegion as keyof typeof regions] || []).map(
+            (subRegion) => (
+              <label
+                key={subRegion}
+                className="flex items-center space-x-2 my-2 cursor-pointer p-1 rounded-md hover:bg-orange-100 transition"
+              >
+                <input
+                  type="radio"
+                  name="subRegion-mobile"
+                  value={subRegion}
+                  checked={selectedSubRegion === subRegion}
+                  onChange={() => setSelectedSubRegion(subRegion)}
+                  className="appearance-none w-5 h-5 rounded-full bg-white border border-gray-300 checked:bg-red-300 checked:border-none outline-none focus:ring-0"
+                />
+                <span className="text-sm">{subRegion}</span>
+              </label>
+            )
+          )}
         </div>
       </div>
       <hr className="my-4 border-gray-200"></hr>
