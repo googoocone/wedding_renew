@@ -1,26 +1,22 @@
 "use client";
-import { useAtom } from "jotai";
-import { useState } from "react";
-import { AiOutlineSearch } from "react-icons/ai";
-import HallSwiper from "@/components/halltour/HallSwiper";
-import HallFilter from "@/components/halltour/HallFilter";
-import HallViewed from "@/components/halltour/HallViewed";
-import HallCard from "@/components/halltour/HallCard";
-import { weddingHallList } from "@/constants";
 import {
+  selectedFlowerAtom,
   selectedRegionAtom,
   selectedSubRegionAtom,
   selectedWeddingTypeAtom,
-  selectedFlowerAtom,
 } from "@/atom";
+import HallCard from "@/components/halltour/HallCard";
+import HallFilter from "@/components/halltour/HallFilter";
+import HallSwiper from "@/components/halltour/HallSwiper";
+import HallViewed from "@/components/halltour/HallViewed";
+import MobileHallFilter from "@/components/halltour/MobileHallFilter";
+import { weddingHallList } from "@/constants";
+import { useAtom } from "jotai";
+import { useState } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
+import { GiSettingsKnobs } from "react-icons/gi";
 
-const hotKeywords = [
-  "르비르모어",
-  "아모르하우스",
-  "더채플엣논현",
-  "w웨딩",
-  "목화예식장",
-];
+const hotKeywords = ["르비르모어", "아모르하우스", "더채플엣논현", "w웨딩"];
 
 export default function Halltour() {
   const [selectedRegion] = useAtom(selectedRegionAtom);
@@ -28,24 +24,20 @@ export default function Halltour() {
   const [selectedWeddingType] = useAtom(selectedWeddingTypeAtom);
   const [selectedFlower] = useAtom(selectedFlowerAtom);
 
-  // 입력 중인 검색어와 실제 필터에 반영할 검색어를 분리합니다.
   const [searchTerm, setSearchTerm] = useState("");
   const [appliedSearchTerm, setAppliedSearchTerm] = useState("");
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
-  // 검색어가 있으면 필터와 상관없이 이름에 포함된 결과만 반환합니다.
   const filteredWeddingHalls =
     appliedSearchTerm.trim() !== ""
       ? weddingHallList.filter((hall) =>
           hall.name.toLowerCase().includes(appliedSearchTerm.toLowerCase())
         )
       : weddingHallList.filter((hall) => {
-          // 1. 지역 필터: locationType의 첫 번째 값이 선택된 지역과 일치해야 함
           const regionMatch = hall.locationType[0] === selectedRegion;
-          // 2. 상세지역 필터: 선택된 상세지역이 있다면 locationType 배열에 포함되어야 함
           const subRegionMatch = selectedSubRegion
             ? hall.locationType.includes(selectedSubRegion)
             : true;
-          // 3. 예식 타입 필터: "전체"가 아니면 hall.hallType 문자열(쉼표 기준 분리)에서 선택한 타입 포함 여부 확인
           let weddingTypeMatch = true;
           if (selectedWeddingType !== "전체") {
             weddingTypeMatch = hall.hallType
@@ -53,7 +45,6 @@ export default function Halltour() {
               .map((item) => item.trim())
               .includes(selectedWeddingType);
           }
-          // 4. 생화장식 필터: "전체"가 아니면 hall.flower 배열에 선택한 값 포함 여부 확인
           const flowerMatch =
             selectedFlower === "전체" ||
             (hall.flower && hall.flower.includes(selectedFlower));
@@ -63,7 +54,6 @@ export default function Halltour() {
           );
         });
 
-  // 엔터키 또는 아이콘 클릭 시 검색어 반영
   const handleSearch = () => {
     setAppliedSearchTerm(searchTerm);
   };
@@ -71,15 +61,13 @@ export default function Halltour() {
   return (
     <div className="mt-[80px] w-full">
       {/* 검색창 부분 */}
-      <div className="w-[1400px] max-w-full h-[90px] px-[80px] mx-auto flex flex-col items-center justify-center bg-white">
-        <div className="w-[500px] h-[40px] border rounded-full flex items-center">
+      <div className="w-full sm:w-[1400px] max-w-full h-[90px] px-4 sm:px-[80px] mx-auto flex flex-col items-center justify-center bg-white">
+        <div className="w-full sm:w-[500px] h-[40px] border rounded-full flex items-center">
           <input
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSearch();
-              }
+              if (e.key === "Enter") handleSearch();
             }}
             className="flex-1 h-full rounded-full focus:outline-none pl-4"
             placeholder="웨딩홀을 입력해주세요"
@@ -90,12 +78,12 @@ export default function Halltour() {
             className="text-xl mr-4 cursor-pointer"
           />
         </div>
-        <div className="w-[500px] h-[40px] flex items-center overflow-hidden">
-          <div className="text-sm text-black/80 font-semibold px-3">
+        <div className="w-full sm:w-[500px] h-[40px] flex items-center overflow-hidden">
+          <div className="text-xs sm:text-sm text-black/80 font-semibold px-3">
             인기 검색어
           </div>
           {hotKeywords.map((item, index) => (
-            <div key={index} className="text-sm text-gray-500 px-2">
+            <div key={index} className="text-xs sm:text-sm text-gray-500 px-2">
               {item}
             </div>
           ))}
@@ -105,8 +93,32 @@ export default function Halltour() {
       {/* 슬라이드 부분 */}
       <HallSwiper />
 
+      {/* 모바일 필터 버튼 */}
+      <button
+        onClick={() => setMobileFilterOpen(true)}
+        className="sm:hidden ml-3 mt-3 px-3 py-1.5 bg-gray-200 rounded-full flex items-center justify-center gap-2"
+      >
+        <GiSettingsKnobs /> 필터
+      </button>
+
+      {/* 모바일 필터 모달 */}
+      {mobileFilterOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white w-full max-w-md p-4 rounded-lg relative">
+            <button
+              onClick={() => setMobileFilterOpen(false)}
+              className="absolute top-2 right-2 text-xl font-bold"
+            >
+              ×
+            </button>
+            <MobileHallFilter onClose={() => setMobileFilterOpen(false)} />
+          </div>
+        </div>
+      )}
+
       {/* 컨텐츠 부분 */}
-      <div className="w-[1400px] mt-5 max-w-full flex items-start justify-center mx-auto">
+      <div className="w-[1400px] mt-3 max-w-full flex items-start justify-center mx-auto">
+        {/* 데스크톱 필터는 좌측에 항상 보임 */}
         <div className="hidden lg:block">
           <HallFilter />
         </div>

@@ -6,6 +6,7 @@ import {
   selectedWeddingTypeAtom,
 } from "@/atom";
 import { useAtom } from "jotai";
+import { useEffect } from "react";
 
 const regions = {
   서울: [
@@ -97,9 +98,19 @@ const weddingTypes = [
   "채플",
 ];
 const flowerDecorations = ["전체", "생화장식", "조화장식"];
-const guestCounts = [150, 200, 250, 300];
 
-export default function HallFilter() {
+interface MobileHallFilterProps {
+  onClose: () => void;
+}
+
+export default function MobileHallFilter({ onClose }: MobileHallFilterProps) {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   const [selectedRegion, setSelectedRegion] = useAtom(selectedRegionAtom);
   const [selectedSubRegion, setSelectedSubRegion] = useAtom(
     selectedSubRegionAtom
@@ -110,13 +121,18 @@ export default function HallFilter() {
   const [selectedFlower, setSelectedFlower] = useAtom(selectedFlowerAtom);
 
   return (
-    <div className="w-[250px] bg-white border border-gray-100 rounded-xl p-4 shadow-md">
-      <h3 className="text-lg font-bold mb-2">필터</h3>
+    <div className="fixed inset-0 z-50 bg-white p-4 overflow-y-auto">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-lg font-bold">필터</h3>
+        <button onClick={onClose} className="text-2xl font-bold">
+          ×
+        </button>
+      </div>
 
       {/* 지역 선택 */}
       <div className="my-4">
-        <h4 className="text-md font-semibold mb-4">위치</h4>
-        <div className="flex flex-col space-y-2">
+        <h4 className="text-md font-semibold my-4">위치</h4>
+        <div className="flex flex-col space-y-3">
           {Object.keys(regions).map((region) => (
             <label
               key={region}
@@ -124,74 +140,75 @@ export default function HallFilter() {
             >
               <input
                 type="radio"
-                name="region"
+                name="region-mobile"
                 value={region}
                 checked={selectedRegion === region}
                 onChange={() => {
                   setSelectedRegion(region);
                   setSelectedSubRegion(""); // 지역 변경 시 상세지역 초기화
                 }}
-                className="appearance-none w-5 h-5 rounded-full bg-white border border-gray-200 checked:bg-red-300 checked:border-none outline-none focus:ring-0"
+                className="appearance-none w-5 h-5 rounded-full bg-white border border-gray-300 checked:bg-red-300 checked:border-none outline-none focus:ring-0"
               />
-              <span>{region}</span>
+              <span className="text-sm">{region}</span>
             </label>
           ))}
         </div>
-        <hr className="mt-4" />
       </div>
 
+      <hr className="my-4 border-gray-200"></hr>
+
       {/* 상세 지역 선택 */}
-      <div className="mt-8">
-        <h4 className="text-md font-semibold mb-4">상세 지역</h4>
-        <div className="h-[250px] scrollbar overflow-y-auto rounded-lg p-2 bg-gray-50 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
-          {regions[selectedRegion].map((subRegion: any) => (
+      <div className="mb-4">
+        <h4 className="text-md font-semibold my-4">상세 지역</h4>
+        <div className="h-[200px] space-y-2 overflow-y-auto rounded-lg p-2 bg-gray-50 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
+          {regions[selectedRegion].map((subRegion) => (
             <label
               key={subRegion}
               className="flex items-center space-x-2 my-2 cursor-pointer p-1 rounded-md hover:bg-orange-100 transition"
             >
               <input
                 type="radio"
-                name="subRegion"
+                name="subRegion-mobile"
                 value={subRegion}
                 checked={selectedSubRegion === subRegion}
                 onChange={() => setSelectedSubRegion(subRegion)}
-                className="appearance-none w-5 h-5 rounded-full bg-white border border-gray-200 checked:bg-red-300 checked:border-none outline-none focus:ring-0"
+                className="appearance-none w-5 h-5 rounded-full bg-white border border-gray-300 checked:bg-red-300 checked:border-none outline-none focus:ring-0"
               />
-              <span>{subRegion}</span>
+              <span className="text-sm">{subRegion}</span>
             </label>
           ))}
         </div>
-        <hr className="mt-4" />
       </div>
+      <hr className="my-4 border-gray-200"></hr>
 
       {/* 예식 타입 선택 */}
-      <div className="mt-8">
-        <h4 className="text-md font-semibold mb-4">예식 타입</h4>
-        <div className="flex flex-col space-y-2">
+      <div className="my-4">
+        <h4 className="text-md font-semibold my-4">예식 타입</h4>
+        <div className="flex flex-col space-y-3">
           {weddingTypes.map((type) => (
             <label
               key={type}
-              className="flex items-center space-x-2 cursor-pointer"
+              className="flex items-center space-x-2  cursor-pointer"
             >
               <input
                 type="radio"
-                name="weddingType"
+                name="weddingType-mobile"
                 value={type}
                 checked={selectedWeddingType === type}
                 onChange={() => setSelectedWeddingType(type)}
-                className="appearance-none w-5 h-5 rounded-full bg-white border border-gray-200 checked:bg-red-300 checked:border-none outline-none focus:ring-0"
+                className="appearance-none w-5 h-5 rounded-full bg-white border border-gray-300 checked:bg-red-300 checked:border-none outline-none focus:ring-0"
               />
-              <span>{type}</span>
+              <span className="text-sm">{type}</span>
             </label>
           ))}
         </div>
-        <hr className="mt-4" />
       </div>
+      <hr className="my-4 border-gray-200"></hr>
 
       {/* 생화장식 선택 */}
-      <div className="mt-8">
-        <h4 className="text-md font-semibold mb-4">생화장식</h4>
-        <div className="flex flex-col space-y-2">
+      <div className="my-4">
+        <h4 className="text-md font-semibold my-4">생화장식</h4>
+        <div className="flex flex-col space-y-3">
           {flowerDecorations.map((flower) => (
             <label
               key={flower}
@@ -199,30 +216,33 @@ export default function HallFilter() {
             >
               <input
                 type="radio"
-                name="flowerDecoration"
+                name="flowerDecoration-mobile"
                 value={flower}
                 checked={selectedFlower === flower}
                 onChange={() => setSelectedFlower(flower)}
-                className="appearance-none w-5 h-5 rounded-full bg-white border border-gray-200 checked:bg-red-300 checked:border-none outline-none focus:ring-0"
+                className="appearance-none w-5 h-5 rounded-full bg-white border border-gray-300 checked:bg-red-300 checked:border-none outline-none focus:ring-0"
               />
-              <span>{flower}</span>
+              <span className="text-sm">{flower}</span>
             </label>
           ))}
         </div>
-        <hr className="mt-4" />
       </div>
 
-      {/* 보증 인원 선택 */}
-
-      {/* 초기화 버튼 */}
+      {/*  버튼 */}
       <button
-        className="w-full bg-orange-500 text-white py-2 rounded-md mt-3 hover:bg-orange-600 transition"
+        onClick={() => onClose()}
+        className="w-full bg-orange-500 text-white py-2 rounded-md mt-4 hover:bg-orange-600 transition"
+      >
+        적용하기
+      </button>
+      <button
         onClick={() => {
           setSelectedRegion("서울");
           setSelectedSubRegion("");
           setSelectedWeddingType("전체");
           setSelectedFlower("전체");
         }}
+        className="w-full bg-orange-500 text-white py-2 rounded-md mt-4 hover:bg-orange-600 transition"
       >
         초기화
       </button>

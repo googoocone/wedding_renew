@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function HallCard({ data }: any) {
   return (
-    <div className="max-w-[350px] w-full h-[515px]">
+    <div className="sm:max-w-[350px] w-full h-[515px] px-4 sm:p-0">
       <div className="w-full h-[350px] relative rounded-xl my-1 bg-gray-100">
         <Image
           fill

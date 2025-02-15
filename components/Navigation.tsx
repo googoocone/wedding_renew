@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function Navigation() {
   const [isMenu, setIsMenu] = useState(false);
@@ -142,14 +142,12 @@ export default function Navigation() {
           >
             <ul className="flex flex-col space-y-6 p-5">
               {navList.map((item, index) => (
-                <li key={index}>
-                  <a
-                    href={item.url}
-                    className="text-lg font-medium hover:text-gray-600 transition"
-                  >
-                    {item.name}
-                  </a>
-                </li>
+                <a
+                  href={item.url}
+                  className="text-lg font-medium hover:text-gray-600 transition"
+                >
+                  <li key={index}>{item.name}</li>
+                </a>
               ))}
             </ul>
             <ul className="flex flex-col space-y-4 p-5">
