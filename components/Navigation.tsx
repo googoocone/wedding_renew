@@ -34,6 +34,10 @@ export default function Navigation() {
     setClickProfile((prev) => !prev);
   };
 
+  if (status == "loading") {
+    return <div>...</div>;
+  }
+
   return (
     <>
       {/* 데스크탑 네비게이션 */}
