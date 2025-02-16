@@ -94,7 +94,7 @@ body {
   background: none;
   text-align: center;
   font: inherit;
-  font-size: 0.833em;
+  font-size: 1em !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
@@ -120,14 +120,40 @@ body {
 }
 
 .react-calendar__tile--active {
-  color: #ff8a8a !important;
-  background-color: inherit !important;
+  color: inherit !important;
+  background-color: transparent !important;
 }
 
 .react-calendar__tile:hover {
-  color: #ff8a8a !important;
-  background-color: inherit !important;
+  background-color: #ffc8bd !important;
 }
 .react-calendar__month-view__days__day--weekend:hover {
   background-color: rgba(255, 200, 189, 0.2) !important;
+}
+
+@media (max-width: 640px) {
+  /* 모바일 전용 스타일 */
+  .react-calendar__tile {
+    max-width: 100%;
+    padding: 5px 3.6667px;
+    background: none;
+    text-align: center;
+    font: inherit;
+    font-size: 0.8em !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    position: relative;
+  }
+
+  .react-calendar__month-view__days__day {
+    padding: 0 !important;
+    height: 90px !important;
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    font-size: 0.7rem !important;
+    font-weight: 600 !important;
+  }
 }

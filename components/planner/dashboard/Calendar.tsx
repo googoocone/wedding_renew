@@ -21,7 +21,7 @@ export default function Calendar({
   }
 
   return (
-    <div className=" sm:w-3/5 h-full px-2">
+    <div className="w-full sm:w-3/5 h-full px-2">
       <ReactCalendar
         locale="ko"
         formatDay={(locale, date) => dayjs(date).format("D")}
@@ -43,14 +43,20 @@ export default function Calendar({
 
           if (items.length > 0) {
             return (
-              <div className="flex justify-center items-center absolute bottom-4 space-x-1">
-                {items.map((item, index) => (
-                  <div
-                    key={index}
-                    className="w-1.5 h-1.5 bg-[#ff8a8a] rounded-full flex"
-                    style={{ backgroundColor: item.color }}
-                  ></div>
-                ))}
+              <div className="w-full flex flex-col justify-center items-center absolute top-6 gap-0.5 ">
+                {items.map((item, index) => {
+                  const text = item.title;
+
+                  return (
+                    <div
+                      key={index}
+                      className="w-[90%] h-5 px-1 text-black text-2xs rounded-lg flex items-center truncate"
+                      style={{ backgroundColor: item.color }}
+                    >
+                      {item.title}
+                    </div>
+                  );
+                })}
               </div>
             );
           }

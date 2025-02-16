@@ -18,6 +18,7 @@ export default function Todo({
   selectedMonth: string;
 }) {
   const [selectedItem, setSelectedItem] = useState<TodoItem | null>(null);
+  const [isAddEventOpen, setIsAddEventOpen] = useState(false);
 
   const handleClick = (item: TodoItem) => {
     setSelectedItem(item);
@@ -47,14 +48,14 @@ export default function Todo({
           }
         }
       `}</style>
-      <div className="w-full h-[40px]  text-xl font-semibold mb-4 flex items-center justify-start pl-2">
+      <div className="w-full h-[20px] sm:h-[40px]  text-xl font-semibold mb-4 flex items-center justify-start pl-2">
         To Do List
       </div>
       <div className="w-full h-[500px] flex flex-col items-center justify-start overflow-y-auto gap-4">
         {data.map((item, index) => {
           if (dayjs(item.date).format("MM") === selectedMonth) {
             return (
-              <div className="w-full h-[80px]">
+              <div key={index} className="w-full h-[80px]">
                 <div
                   className="w-full h-[80px] flex cursor-pointer hover:bg-gray-50"
                   onClick={() => handleClick(item)}
@@ -87,7 +88,10 @@ export default function Todo({
           }
         })}
       </div>
-      <div className="w-full h-[50px] rounded-xl flex items-center justify-center text-2xl bg-[#fff2ec] text-[#e84500] cursor-pointer hover:text-3xl transition-all duration-300">
+      <div
+        onClick={() => setIsAddEventOpen(true)}
+        className="w-full h-[50px] rounded-xl flex items-center justify-center text-2xl bg-[#fff2ec] text-[#e84500] cursor-pointer hover:text-3xl transition-all duration-300"
+      >
         <AiOutlinePlusCircle></AiOutlinePlusCircle>
       </div>
       {selectedItem && (
@@ -120,6 +124,47 @@ export default function Todo({
             <div className="flex justify-end ">
               <button
                 onClick={handleClose}
+                className=" text-white text-sm px-2 py-1 rounded-md bg-[#ffc8bd] hover:bg-[#ff8a8a]"
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {isAddEventOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center shadow-lg">
+          <div
+            className="bg-white p-4 rounded-xl shadow-lg sm:w-[400px] h-[500px] relative w-[90%]"
+            style={{ animation: "popup 0.3s ease-out" }}
+          >
+            <input
+              className="text-xl font-bold mt-2 mb-1 w-full h-[50px] focus:outline-none"
+              placeholder="일정 제목"
+              autoFocus
+            ></input>
+            <input
+              type="date"
+              className="w-full h-4 flex items-center justify-start gap-4 text-md text-gray-500 mt-3 mb-4"
+            />
+            <input
+              type="time"
+              className="w-full h-4 flex items-center justify-start gap-4 text-md text-gray-500 mt-3 mb-4"
+            />
+
+            <textarea
+              placeholder="내용을 입력해 주세요"
+              className="text-sm p-2 text-gray-800 mb-4 text-justify w-full h-[290px] border border-gray-200 focus:outline-none placeholder:text-top"
+            />
+            <div className="flex justify-end gap-3 ">
+              <button
+                onClick={() => setIsAddEventOpen(false)}
+                className=" text-white text-sm px-2 py-1 rounded-md bg-[#ffc8bd] hover:bg-[#ff8a8a]"
+              >
+                저장
+              </button>
+              <button
+                onClick={() => setIsAddEventOpen(false)}
                 className=" text-white text-sm px-2 py-1 rounded-md bg-[#ffc8bd] hover:bg-[#ff8a8a]"
               >
                 닫기

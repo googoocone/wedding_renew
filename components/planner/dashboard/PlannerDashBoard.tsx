@@ -9,8 +9,8 @@ export default function PlannerDashBoard({ data, changeMonth }: any) {
 
   return (
     <>
-      <div className="w-full sm:max-w-[1150px] bg-white p-4">
-        <div className="w-full flex items-start justify-center">
+      <div className="w-full sm:max-w-[1150px] bg-white p-2 sm:p-4">
+        <div className="w-full flex flex-col sm:flex-row items-start justify-center">
           <Calendar data={schedule} onMonthChange={setSelectedMonth}></Calendar>
           <Todo data={schedule} selectedMonth={selectedMonth}></Todo>
         </div>
