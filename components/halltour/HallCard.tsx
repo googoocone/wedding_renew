@@ -24,12 +24,6 @@ export default function HallCard({ data }: any) {
           <div key={tag}>#{tag}</div>
         ))}
       </div>
-      {/* <div className="flex items-center justify-between">
-        <div className="text-2xl flex items-end text-black/60 font-semibold mt-2">
-          <div className="text-sm font-normal w-[50px]">대관료 </div>
-          {data.hallPrice}만원
-        </div>
-      </div> */}
     </div>
   );
 }
