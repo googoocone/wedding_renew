@@ -118,10 +118,8 @@ export const weddingHallList = [
 
     mealType: { 뷔페식: 70000, 호텔식: 100000 },
     minGuarantee: [250],
-    hallPrice: 800,
     parking: [150],
     weddingInterval: 90,
-    mealPrice: 70000,
     maxCapacity: [550],
     photoTable: "포함",
     specialDirecting: ["음향 및 특수조명, 스크린 상영"],
