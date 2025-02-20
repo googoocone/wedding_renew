@@ -64,3 +64,10 @@ model User {
   account         Account[]     
   sessions        Session[]
 }
+
+
+model Admin {
+  id              String          @id @default(uuid())
+  email           String          @unique
+  password        String
+}
