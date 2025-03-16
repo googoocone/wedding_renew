@@ -7,7 +7,7 @@ import Navigation from "@/components/Navigation";
 import SessionProvider from "./Provider";
 
 const notoSansKR = Noto_Sans_KR({
-  subsets: ["latin", "korean"], // 한글 지원
+  subsets: ["latin"], // 한글 지원
   weight: ["100", "300", "400", "500", "700", "900"], // 원하는 폰트 두께
   display: "swap",
 });
